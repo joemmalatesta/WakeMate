@@ -6,6 +6,10 @@
 @tailwind utilities;
 
 
+html{
+    @apply scroll-smooth
+}
+
 body{
     @apply bg-[#17123b] text-white;
     font-family: 'Inter', sans-serif;
