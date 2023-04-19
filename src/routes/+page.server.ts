@@ -10,7 +10,8 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		let phoneNumber : string | any = formData.get('phone')
 		let time: string | any = formData.get('time')
-		if (time == null) {
+		if (!time) {
+			console.log("here")
 			return {
 				output: "time failure"
 			}
@@ -21,7 +22,7 @@ export const actions: Actions = {
 
 		try {
 			const output = await twilioClient.messages.create({
-				body: 'Hello from Twilio!',
+				body: `Glad to see you're serious about this...\nWe're giving you a 7 day trial and will wake you up at ${time} tomorrow`,
 				to: phoneNumber,
 				from: '+18335197545'
 			}).then(message => feedback = message.sid)
