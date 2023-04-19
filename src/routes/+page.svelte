@@ -44,7 +44,7 @@ import Pricing from "../components/Pricing.svelte";
 
 
 <section id="pricing" class="my-40">
-	<div class="relative text-center md:text-7xl text-5xl font-extrabold mb-7">
+	<div class="relative text-center md:text-6xl text-4xl font-extrabold mb-7">
 		<h1 class="">Pricing</h1>
 		<p class="absolute inset-0 blur opacity-40">Pricing</p>
 	</div>
