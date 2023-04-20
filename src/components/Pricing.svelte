@@ -34,7 +34,7 @@
 
 <div class="flex justify-around md:flex-row flex-col items-center">
 	{#each pricingOptions as option}
-		<div class="p-5 flex flex-col outline rounded-lg w-80 bg-indigo-100/5 text-lg my-3">
+		<div class="p-5 flex flex-col ring ring-indigo-600 rounded-lg w-80 bg-indigo-100/5 text-lg my-3">
 			<h5 class="text-2xl font-bold text-center">{option.type} - {option.price}</h5>
 			<ul class="flex flex-col mx-2">
                 <div class="flex justify-between items-center my-1">
@@ -50,7 +50,7 @@
 					<p>{option.texts}</p>
 				</div>
 			</ul>
-			<button class="w-full bg-indigo-300 hover:bg-indigo-400 p-2 rounded-lg text-black">Purchase</button>
+			<button class="w-full bg-indigo-400 hover:bg-indigo-500 p-2 rounded-lg text-black">Purchase</button>
 		</div>
 	{/each}
 </div>
