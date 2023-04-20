@@ -1,8 +1,10 @@
 <script lang="ts">
-	import About from '../components/About.svelte';
 	import Pricing from '../components/Pricing.svelte';
+	import ValidateModal from '../components/ValidateForm.svelte';
 
 	export let form;
+	let formOutput : string
+	$: formOutput = form?.output || ""
 	let times = [
 		'4:00am',
 		'5:00am',
@@ -19,7 +21,7 @@
 </script>
 
 <!-- INTRO BIT -->
-<main class="lg:mx-40 mx-4 mt-16">
+<main class="lg:mx-40 mx-4 mt-16 relative">
 	<div class="relative text-center md:text-7xl text-5xl font-extrabold">
 		<h1 class="">Take back your morning</h1>
 		<p class="absolute inset-0 blur opacity-40">Take back your morning</p>
@@ -29,16 +31,16 @@
 	</p>
 
 	<!-- NUMBER FORM -->
-	<form method="POST" class="flex justify-center items-center flex-col mt-8">
+	<form method="POST" action="?/sendValidation" class="flex justify-center items-center flex-col mt-8 relative">
 		<input
-			class="w-full xl:w-1/3 lg:w-3/5 p-3 text-black md:text-2xl text-xl placeholder:text-center rounded-t-lg placeholder:text-neutral-700/80"
+			class="w-full 2xl:w-1/3 lg:w-3/4 p-3 text-black md:text-2xl text-xl placeholder:text-center rounded-t-lg placeholder:text-neutral-700/80"
 			type="tel"
 			name="phone"
 			inputmode="numeric"
 			id="phone"
 			placeholder="Your phone number"
 		/>
-		<ul class="flex flex-wrap justify-between items-center w-full xl:w-1/3 lg:w-3/5">
+		<ul class="flex flex-wrap justify-between items-center w-full 2xl:w-1/3 lg:w-3/4">
 			{#each times as time, index}
 				<button 
 				type="button"
@@ -58,15 +60,25 @@
 		<input class="hidden" name="time" value={times[selectedTime] || null} />
 		<button
 			type="submit"
-			class="w-full bg-[#4437b0] hover:bg-[#2e257a] p-3 xl:w-1/3 lg:w-3/5 rounded-b-lg md:text-2xl text-xl font-semibold drop-shadow-lg"
-			>Wake me up</button
+			class="w-full bg-[#4437b0] hover:bg-[#2e257a] p-3 2xl:w-1/3 lg:w-3/4 rounded-b-lg md:text-2xl text-xl font-semibold drop-shadow-lg"
+			>Wake me up {times[selectedTime] ? `at ${times[selectedTime]}`: ""}</button
 		>
-		{#if form?.output === 'time failure'}
+		{#if formOutput === 'time failure'}
 			<p class="text-red-400 font-thin">Select wake up time</p>
-		{:else if form?.output === 'number failure'}
+		{:else if formOutput === 'number failure'}
 			<p class="text-red-400 font-thin">Enter valid phone number</p>
 		{/if}
+
+		<!-- Modal if form success -->
+	{#if formOutput === "success"}
+		<div class="absolute flex justify-center items-center w-80 h-40 bg-red-400 z-20 rounded-xl">
+			<ValidateModal bind:formOutput/>
+		</div>
+	{/if}
 	</form>
+
+	
+	
 
 	<!-- <section id="about" class="mt-40">
 		<About />
@@ -79,4 +91,10 @@
 		</div>
 		<Pricing />
 	</section>
+
+
+	
 </main>
+{#if formOutput === "success"}
+<div class="absolute inset-0 h-screen w-screen bg-neutral-900 opacity-90 -z-1"></div>
+{/if}

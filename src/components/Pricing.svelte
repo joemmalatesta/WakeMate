@@ -34,8 +34,8 @@
 
 <div class="flex justify-around md:flex-row flex-col items-center">
 	{#each pricingOptions as option}
-		<div class="p-5 flex flex-col ring ring-indigo-600 rounded-lg w-80 bg-indigo-100/5 text-lg my-3">
-			<h5 class="text-2xl font-bold text-center">{option.type} - {option.price}</h5>
+		<div class="p-5 flex flex-col ring ring-indigo-100/60 shadow-md shadow-white rounded-lg w-80 bg-indigo-100/5 text-lg my-3">
+			<h5 class="text-3xl font-bold text-center">{option.type} - {option.price}</h5>
 			<ul class="flex flex-col mx-2">
                 <div class="flex justify-between items-center my-1">
 					<p>Numbers</p>
