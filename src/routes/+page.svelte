@@ -18,10 +18,6 @@
 		'8:30am'
 	];
 	let selectedTime = -1;
-
-	
-
-
 </script>
 
 <!-- INTRO BIT -->
@@ -80,7 +76,9 @@
 
 		<!-- Modal if form success -->
 		{#if formOutput === 'success' || formOutput === 'validation failure'}
-			<div class="absolute flex justify-center items-center py-6 px-10 bg-neutral-300 z-20 rounded-xl">
+			<div
+				class="absolute flex justify-center items-center py-6 px-10 bg-neutral-300 z-20 rounded-xl"
+			>
 				<ValidateModal bind:formOutput />
 			</div>
 		{/if}

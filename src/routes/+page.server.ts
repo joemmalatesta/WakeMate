@@ -5,40 +5,39 @@ const accountSid = 'AC2fe4e7d6a110de275db95313acb6c299';
 const authToken = '4dd54669056c375fdb84a0e4aada0023';
 const twilioClient = twilio(accountSid, authToken);
 
-
-let validationNumber: number
-let phoneNumber: number | any
-let time: string | any
-
-
+let validationNumber: number;
+let phoneNumber: number | any;
+let time: string | any;
 
 export const actions: Actions = {
-	sendValidation: async ({request}) => {
+	sendValidation: async ({ request }) => {
 		const formData = await request.formData();
-		phoneNumber = formData.get('phone')
-		time = formData.get('time')
+		phoneNumber = formData.get('phone');
+		time = formData.get('time');
 		if (!time) {
 			return {
-				output: "time failure"
-			}
+				output: 'time failure'
+			};
 		}
-		console.log(time, phoneNumber)
-		validationNumber = Math.floor(Math.random() * 1000000);
-
+		console.log(time, phoneNumber);
+		const min = 100000; // minimum value (inclusive)
+		const max = 999999; // maximum value (inclusive)
+		const validationNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
 		try {
-			console.log("trying")
-			const sendMessage = await twilioClient.messages.create({
-				body: `Your wake up call code is: ${validationNumber}`,
-				to: phoneNumber,
-				from: '+18335197545'
-			}).then(message => console.log(message.sid))
+			console.log('trying');
+			const sendMessage = await twilioClient.messages
+				.create({
+					body: `Your wake up call code is: ${validationNumber}`,
+					to: phoneNumber,
+					from: '+18335197545'
+				})
+				.then((message) => console.log(message.sid));
 		} catch (error) {
 			console.error(error);
-            return{
-                output : "number failure"
-            }
-            
+			return {
+				output: 'number failure'
+			};
 		}
 
 		return {
@@ -46,40 +45,34 @@ export const actions: Actions = {
 		};
 	},
 
-
-
-
-
-	validate: async ({request}) => {
-		console.log("now trying this")
+	validate: async ({ request }) => {
+		console.log('now trying this');
 		const formData = await request.formData();
-		let inputNumber: number | any = formData.get('code')
-		console.log(inputNumber, validationNumber)
+		let inputNumber: number | any = formData.get('code');
+		console.log(inputNumber, validationNumber);
 
 		// Stop if the numbers don't match. let them retry
 		if (inputNumber != validationNumber) {
-			console.log("numbers don't match")
+			console.log("numbers don't match");
 			return {
-				output: "validation failure"
-			}
+				output: 'validation failure'
+			};
 		}
-
 
 		try {
-			const sendMessage = await twilioClient.messages.create({
-				body: `Welcome to your most productive self.\nYou'll get 7 free wake up calls starting tomorrow at ${time}`,
-				to: phoneNumber,
-				from: '+18335197545'
-			}).then(message => console.log(message.sid))
+			const sendMessage = await twilioClient.messages
+				.create({
+					body: `Welcome to your most productive self.\nYou'll get 7 free wake up calls starting tomorrow at ${time}`,
+					to: phoneNumber,
+					from: '+18335197545'
+				})
+				.then((message) => console.log(message.sid));
 		} catch (error) {
 			console.error(error);
-            return{
-                output : "validation failure"
-            }
-            
+			return {
+				output: 'validation failure'
+			};
 		}
-
-
 
 		// Send to DB here. Prisma?
 
