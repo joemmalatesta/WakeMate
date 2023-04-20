@@ -2,9 +2,6 @@
 	import About from '../components/About.svelte';
 	import Pricing from '../components/Pricing.svelte';
 
-	import { inject } from '@vercel/analytics';
-	inject();
-
 	export let form;
 	let times = [
 		'4:00am',
@@ -43,7 +40,8 @@
 		/>
 		<ul class="flex flex-wrap justify-between items-center w-full xl:w-1/3 lg:w-3/5">
 			{#each times as time, index}
-				<button
+				<button 
+				type="button"
 					class="w-1/5 h-12 flex justify-center items-center border border-[#5a4ecc] cursor-pointer {selectedTime ==
 					index
 						? 'bg-[#4437b0]'
@@ -53,8 +51,7 @@
 					}}
 					on:keypress={() => {
 						selectedTime = index;
-					}}>{time}</button
-				>
+					}}>{time}</button>
 			{/each}
 		</ul>
 
