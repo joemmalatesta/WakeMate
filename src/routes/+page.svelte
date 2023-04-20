@@ -3,8 +3,8 @@
 	import ValidateModal from '../components/ValidateForm.svelte';
 
 	export let form;
-	let formOutput : string
-	$: formOutput = form?.output || ""
+	let formOutput: string;
+	$: formOutput = form?.output || '';
 	let times = [
 		'4:00am',
 		'5:00am',
@@ -18,6 +18,10 @@
 		'8:30am'
 	];
 	let selectedTime = -1;
+
+	
+
+
 </script>
 
 <!-- INTRO BIT -->
@@ -31,7 +35,11 @@
 	</p>
 
 	<!-- NUMBER FORM -->
-	<form method="POST" action="?/sendValidation" class="flex justify-center items-center flex-col mt-8 relative">
+	<form
+		method="POST"
+		action="?/sendValidation"
+		class="flex justify-center items-center flex-col mt-8 relative"
+	>
 		<input
 			class="w-full 2xl:w-1/3 lg:w-3/4 p-3 text-black md:text-2xl text-xl placeholder:text-center rounded-t-lg placeholder:text-neutral-700/80"
 			type="tel"
@@ -42,8 +50,8 @@
 		/>
 		<ul class="flex flex-wrap justify-between items-center w-full 2xl:w-1/3 lg:w-3/4">
 			{#each times as time, index}
-				<button 
-				type="button"
+				<button
+					type="button"
 					class="w-1/5 h-12 flex justify-center items-center border border-[#5a4ecc] cursor-pointer {selectedTime ==
 					index
 						? 'bg-[#4437b0]'
@@ -53,7 +61,8 @@
 					}}
 					on:keypress={() => {
 						selectedTime = index;
-					}}>{time}</button>
+					}}>{time}</button
+				>
 			{/each}
 		</ul>
 
@@ -61,7 +70,7 @@
 		<button
 			type="submit"
 			class="w-full bg-[#4437b0] hover:bg-[#2e257a] p-3 2xl:w-1/3 lg:w-3/4 rounded-b-lg md:text-2xl text-xl font-semibold drop-shadow-lg"
-			>Wake me up {times[selectedTime] ? `at ${times[selectedTime]}`: ""}</button
+			>Wake me up {times[selectedTime] ? `at ${times[selectedTime]}` : ''}</button
 		>
 		{#if formOutput === 'time failure'}
 			<p class="text-red-400 font-thin">Select wake up time</p>
@@ -70,15 +79,12 @@
 		{/if}
 
 		<!-- Modal if form success -->
-	{#if formOutput === "success"}
-		<div class="absolute flex justify-center items-center w-80 h-40 bg-red-400 z-20 rounded-xl">
-			<ValidateModal bind:formOutput/>
-		</div>
-	{/if}
+		{#if formOutput === 'success' || formOutput === 'validation failure'}
+			<div class="absolute flex justify-center items-center py-6 px-10 bg-neutral-300 z-20 rounded-xl">
+				<ValidateModal bind:formOutput />
+			</div>
+		{/if}
 	</form>
-
-	
-	
 
 	<!-- <section id="about" class="mt-40">
 		<About />
@@ -91,10 +97,7 @@
 		</div>
 		<Pricing />
 	</section>
-
-
-	
 </main>
-{#if formOutput === "success"}
-<div class="absolute inset-0 h-screen w-screen bg-neutral-900 opacity-90 -z-1"></div>
+{#if formOutput === 'success' || formOutput === 'validation failure'}
+	<div class="absolute inset-0 h-screen w-screen bg-neutral-900 opacity-90 -z-1 overflow-hidden" />
 {/if}

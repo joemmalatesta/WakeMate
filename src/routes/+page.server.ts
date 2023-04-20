@@ -74,10 +74,14 @@ export const actions: Actions = {
 		} catch (error) {
 			console.error(error);
             return{
-                output : "number failure"
+                output : "validation failure"
             }
             
 		}
+
+
+
+		// Send to DB here. Prisma?
 
 		return {
 			output: 'validation success'
