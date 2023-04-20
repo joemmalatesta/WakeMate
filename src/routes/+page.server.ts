@@ -29,7 +29,7 @@ export const actions: Actions = {
 		try {
 			console.log("trying")
 			const sendMessage = await twilioClient.messages.create({
-				body: `Your code: ${validationNumber}`,
+				body: `Your wake up call code is: ${validationNumber}`,
 				to: phoneNumber,
 				from: '+18335197545'
 			}).then(message => console.log(message.sid))
