@@ -18,15 +18,17 @@
 		'8:30am'
 	];
 	let selectedTime = -1;
+
+	// $: document.body.style.overflow = (formOutput === 'success' || formOutput === "validation failure") ? 'hidden' : 'auto';
 </script>
 
 <!-- INTRO BIT -->
-<main class="lg:mx-40 mx-4 mt-16 relative">
-	<div class="relative text-center md:text-7xl text-5xl font-extrabold">
+<main class="relative mx-4 mt-16 lg:mx-40">
+	<div class="relative text-center text-5xl font-extrabold md:text-7xl">
 		<h1 class="">Take back your morning</h1>
-		<p class="absolute inset-0 blur opacity-40">Take back your morning</p>
+		<p class="absolute inset-0 opacity-40 blur">Take back your morning</p>
 	</div>
-	<p class="text-center md:text-xl font-extrabold mt-4 text-[#d2cff0]">
+	<p class="mt-4 text-center font-extrabold text-[#d2cff0] md:text-xl">
 		Get a wake up call each morning, giving you motivation for the day ahead
 	</p>
 
@@ -34,21 +36,21 @@
 	<form
 		method="POST"
 		action="?/sendValidation"
-		class="flex justify-center items-center flex-col mt-8 relative"
+		class="relative mt-8 flex flex-col items-center justify-center"
 	>
 		<input
-			class="w-full 2xl:w-1/3 lg:w-3/4 p-3 text-black md:text-2xl text-xl placeholder:text-center rounded-t-lg placeholder:text-neutral-700/80"
+			class="w-full rounded-t-lg p-3 text-xl text-black placeholder:text-center placeholder:text-neutral-700/80 md:text-2xl lg:w-3/4 2xl:w-1/3"
 			type="tel"
 			name="phone"
 			inputmode="numeric"
 			id="phone"
 			placeholder="Your phone number"
 		/>
-		<ul class="flex flex-wrap justify-between items-center w-full 2xl:w-1/3 lg:w-3/4">
+		<ul class="flex w-full flex-wrap items-center justify-between lg:w-3/4 2xl:w-1/3">
 			{#each times as time, index}
 				<button
 					type="button"
-					class="w-1/5 h-12 flex justify-center items-center border border-[#5a4ecc] cursor-pointer {selectedTime ==
+					class="flex h-12 w-1/5 cursor-pointer items-center justify-center border border-[#5a4ecc] {selectedTime ==
 					index
 						? 'bg-[#4437b0]'
 						: 'bg-[#786afa]'}"
@@ -61,23 +63,23 @@
 				>
 			{/each}
 		</ul>
-
 		<input class="hidden" name="time" value={times[selectedTime] || null} />
+
 		<button
 			type="submit"
-			class="w-full bg-[#4437b0] hover:bg-[#2e257a] p-3 2xl:w-1/3 lg:w-3/4 rounded-b-lg md:text-2xl text-xl font-semibold drop-shadow-lg"
+			class="w-full rounded-b-lg bg-[#4437b0] p-3 text-xl font-semibold drop-shadow-lg hover:bg-[#2e257a] md:text-2xl lg:w-3/4 2xl:w-1/3"
 			>Wake me up {times[selectedTime] ? `at ${times[selectedTime]}` : ''}</button
 		>
 		{#if formOutput === 'time failure'}
-			<p class="text-red-400 font-thin">Select wake up time</p>
+			<p class="font-thin text-red-400">Select wake up time</p>
 		{:else if formOutput === 'number failure'}
-			<p class="text-red-400 font-thin">Enter valid phone number</p>
+			<p class="font-thin text-red-400">Enter valid phone number</p>
 		{/if}
 
 		<!-- Modal if form success -->
 		{#if formOutput === 'success' || formOutput === 'validation failure'}
 			<div
-				class="absolute flex justify-center items-center py-6 px-10 bg-neutral-300 z-20 rounded-xl"
+				class="absolute z-20 flex items-center justify-center rounded-xl bg-violet-500/90 px-10 py-6"
 			>
 				<ValidateModal bind:formOutput />
 			</div>
@@ -89,13 +91,13 @@
 </section> -->
 
 	<section id="pricing" class="my-40">
-		<div class="relative text-center md:text-6xl text-4xl font-extrabold mb-7">
+		<div class="relative mb-7 text-center text-4xl font-extrabold md:text-6xl">
 			<h1 class="">Pricing</h1>
-			<p class="absolute inset-0 blur opacity-40">Pricing</p>
+			<p class="absolute inset-0 opacity-40 blur">Pricing</p>
 		</div>
 		<Pricing />
 	</section>
 </main>
 {#if formOutput === 'success' || formOutput === 'validation failure'}
-	<div class="absolute inset-0 h-screen w-screen bg-neutral-900 opacity-90 -z-1 overflow-hidden" />
+	<div class="-z-1 absolute inset-0 h-screen w-screen overflow-hidden bg-neutral-900 opacity-90" />
 {/if}
