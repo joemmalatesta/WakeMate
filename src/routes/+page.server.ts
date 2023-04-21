@@ -14,7 +14,7 @@ let time: string | any;
 
 
 
-async function setCall(phoneNumber: string, time: string) {	
+async function createUser(phoneNumber: string, time: string) {	
 	try{
 		await prisma.user.create({
 			data: {
@@ -41,35 +41,34 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		phoneNumber = formData.get('phone');
 		time = formData.get('time');
-		setCall(phoneNumber, time)
-		// if (!time) {
-		// 	return {
-		// 		output: 'time failure'
-		// 	};
-		// }
-		// console.log(time, phoneNumber);
-		// const min = 100000; // minimum value (inclusive)
-		// const max = 999999; // maximum value (inclusive)
-		// validationNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+		if (!time) {
+			return {
+				output: 'time failure'
+			};
+		}
+		console.log(time, phoneNumber);
+		const min = 100000; // minimum value (inclusive)
+		const max = 999999; // maximum value (inclusive)
+		validationNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
-		// try {
-		// 	const sendMessage = await twilioClient.messages
-		// 		.create({
-		// 			body: `Your wake up call code is: ${validationNumber}`,
-		// 			to: phoneNumber,
-		// 			from: '+18335197545'
-		// 		})
-		// 		.then((message) => console.log(message.sid));
-		// } catch (error) {
-		// 	console.error(error);
-		// 	return fail(500, {
-		// 		output: 'number failure'
-		// 	});
-		// }
+		try {
+			const sendMessage = await twilioClient.messages
+				.create({
+					body: `Your wake up call code is: ${validationNumber}`,
+					to: phoneNumber,
+					from: '+18335197545'
+				})
+				.then((message) => console.log(message.sid));
+		} catch (error) {
+			console.error(error);
+			return fail(500, {
+				output: 'number failure'
+			});
+		}
 
-		// return {
-		// 	output: 'success'
-		// };
+		return {
+			output: 'success'
+		};
 	},
 
 	// After 
@@ -94,7 +93,7 @@ export const actions: Actions = {
 					to: phoneNumber,
 					from: '+18335197545'
 				})
-				.then(() => {setCall(phoneNumber, time)});
+				.then(() => {createUser(phoneNumber, time)});
 		} catch (error) {
 			console.error(error);
 			return fail(500,{
