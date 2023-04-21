@@ -22,7 +22,7 @@ export const actions: Actions = {
 		console.log(time, phoneNumber);
 		const min = 100000; // minimum value (inclusive)
 		const max = 999999; // maximum value (inclusive)
-		const validationNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+		validationNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
 		try {
 			console.log('trying');
