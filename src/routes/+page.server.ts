@@ -15,6 +15,7 @@ let time: string | any;
 
 
 async function createUser(phoneNumber: string, time: string) {	
+	console.log("running Create user")
 	try{
 		await prisma.user.create({
 			data: {
@@ -26,6 +27,7 @@ async function createUser(phoneNumber: string, time: string) {
 		console.log(err)
 		return fail(500, {output: "failed to add to prisma"})
 	}
+
 
 	console.log("Success ADDED!")
 	return {
@@ -86,7 +88,6 @@ export const actions: Actions = {
 		}
 
 		try {
-			console.log("trying")
 			const sendMessage = await twilioClient.messages
 				.create({
 					body: `Welcome to your most productive self.\nYou'll get 7 free wake up calls starting tomorrow at ${time}`,
