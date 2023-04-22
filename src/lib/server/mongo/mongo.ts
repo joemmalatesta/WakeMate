@@ -11,7 +11,8 @@ const client = new MongoClient(uri, {
 	}
 });
 
-export async function createUser(phoneNumber: string, wakeUpTime: string) {
+async function createUser(phoneNumber: string, wakeUpTime: string) {
+	
 	try {
 		await client.connect();
 		const database = client.db('wake-up-call');
@@ -25,3 +26,22 @@ export async function createUser(phoneNumber: string, wakeUpTime: string) {
 	}
 	return true;
 }
+
+
+// false is there is a duplicate number found in the DB, else false
+async function checkDuplicate(phoneNumber: string) {
+	await client.connect();
+	const database = client.db('wake-up-call');
+	const collection = database.collection('users');
+	const existingUser = await collection.findOne({ phoneNumber });
+	if (existingUser) {
+		console.log(`Phone number ${phoneNumber} already exists in the database.`);
+		return false;
+	}
+	return true
+}
+
+
+
+
+export { createUser, checkDuplicate };

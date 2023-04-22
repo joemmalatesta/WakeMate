@@ -11,15 +11,15 @@
 >
 	<h6 class="text-2xl font-semibold">Text Verification</h6>
 	<p class="text-sm">Enter the code from the text we sent</p>
-	<div class="flex items-center">
+	<div class="flex items-center md:flex-row flex-col">
 		<input
 			type="text"
 			inputmode="numeric"
 			name="code"
-			class="text-lg rounded-l-xl text-black p-2 ring-neutral-800/60 my-1 h-fit"
+			class="text-lg md:rounded-l-xl rounded-t-md text-black p-2 ring-neutral-800/60 md:my-1 h-fit"
 		/>
 		<button
-			class="text-lg my-2 p-2 px-5 rounded-r-xl bg-neutral-800 hover:bg-neutral-900 drop-shadow-lg text-white"
+			class="text-lg md:my-2 mb-2 w-full md:w-auto p-2 px-5 rounded-r-xl bg-neutral-800 hover:bg-neutral-900 drop-shadow-lg text-white"
 			>Submit</button
 		>
 	</div>

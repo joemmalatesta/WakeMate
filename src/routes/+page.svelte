@@ -4,7 +4,9 @@
 
 	export let form;
 	let formOutput: string;
+	let formTime: string
 	$: formOutput = form?.output || '';
+	$: formTime = form?.time
 	let times = [
 		'4:00am',
 		'5:00am',
@@ -18,17 +20,17 @@
 		'8:30am'
 	];
 	let selectedTime = -1;
-
 </script>
 
 <!-- INTRO BIT -->
 <main class="relative mx-4 mt-16 lg:mx-40">
 	<div class="relative text-center text-5xl font-extrabold md:text-7xl">
-		<h1 class="">Take back your morning</h1>
-		<p class="absolute inset-0 opacity-40 blur">Take back your morning</p>
+		<h1 class="">{formOutput === 'validation success' ? "Success": "Take back your morning"}</h1>
+		<p class="absolute inset-0 opacity-40 blur-md">{formOutput === 'validation success' ? "Success": "Take back your morning"}</p>
 	</div>
 	<p class="mt-4 text-center font-extrabold text-[#d2cff0] md:text-xl">
-		Get a wake up call each morning, giving you motivation for the day ahead
+		{formOutput === 'validation success' ? `We'll wake you up tomorrow at ${formTime}`: "Get a wake up call each morning, giving you motivation for the day ahead"}
+		
 	</p>
 
 	<!-- NUMBER AND TIME FORM -->
@@ -41,7 +43,7 @@
 			class="w-full rounded-t-lg p-3 text-xl text-black placeholder:text-center placeholder:text-neutral-700/80 md:text-2xl lg:w-3/4 2xl:w-1/3"
 			type="tel"
 			name="phone"
-			inputmode="numeric" 
+			inputmode="numeric"
 			id="phone"
 			placeholder="Your phone number"
 		/>
@@ -60,7 +62,7 @@
 						selectedTime = index;
 					}}>{time}</button
 				>
-			{/each} 
+			{/each}
 		</ul>
 		<input class="hidden" name="time" value={times[selectedTime] || null} />
 
@@ -73,12 +75,15 @@
 			<p class="font-thin text-red-400">Select wake up time</p>
 		{:else if formOutput === 'number failure'}
 			<p class="font-thin text-red-400">Enter valid phone number</p>
+		{:else if formOutput === 'duplicate'}
+			<p class="font-thin text-red-400">Number already Registered</p>
 		{/if}
 
 		<!-- Modal if form success -->
 		{#if formOutput === 'success' || formOutput === 'validation failure'}
 			<div
-				class="scale-90 md:scale-100 absolute z-20 flex items-center justify-center rounded-xl bg-violet-500/90 px-10 py-6">
+				class="absolute z-20 flex items-center justify-center rounded-xl bg-violet-500/90 px-10 py-6"
+			>
 				<ValidateModal bind:formOutput />
 			</div>
 		{/if}
@@ -99,5 +104,3 @@
 {#if formOutput === 'success' || formOutput === 'validation failure'}
 	<div class="-z-1 absolute inset-0 h-screen w-screen overflow-hidden bg-neutral-900 opacity-90" />
 {/if}
-
-
