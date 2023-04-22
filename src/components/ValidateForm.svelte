@@ -2,7 +2,6 @@
 	export let formOutput: any;
 </script>
 
-
 <!-- Modal class used in the app.css to hide overflow when it is active. -->
 <form
 	class="modal flex flex-col justify-center items-center text-black"
@@ -16,10 +15,10 @@
 			type="text"
 			inputmode="numeric"
 			name="code"
-			class="text-lg md:rounded-l-xl rounded-t-md text-black p-2 ring-neutral-800/60 md:my-1 h-fit"
+			class="text-lg md:rounded-l-xl rounded-t text-black p-2 ring-neutral-800/60 md:my-1 mt-1 h-fit"
 		/>
 		<button
-			class="text-lg md:my-2 mb-2 w-full md:w-auto p-2 px-5 rounded-r-xl bg-neutral-800 hover:bg-neutral-900 drop-shadow-lg text-white"
+			class="text-lg md:my-2 mb-2 w-full md:w-auto p-2 px-5 md:rounded-r-xl rounded-b bg-neutral-800 hover:bg-neutral-900 drop-shadow-lg text-white"
 			>Submit</button
 		>
 	</div>
@@ -27,4 +26,3 @@
 		<p class="text-red-800/80">Numbers don't match, try again</p>
 	{/if}
 </form>
-
