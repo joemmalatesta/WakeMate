@@ -19,7 +19,6 @@
 	];
 	let selectedTime = -1;
 
-	// $: document.body.style.overflow = (formOutput === 'success' || formOutput === "validation failure") ? 'hidden' : 'auto';
 </script>
 
 <!-- INTRO BIT -->
@@ -32,7 +31,7 @@
 		Get a wake up call each morning, giving you motivation for the day ahead
 	</p>
 
-	<!-- NUMBER FORM -->
+	<!-- NUMBER AND TIME FORM -->
 	<form
 		method="POST"
 		action="?/sendValidation"
@@ -79,8 +78,7 @@
 		<!-- Modal if form success -->
 		{#if formOutput === 'success' || formOutput === 'validation failure'}
 			<div
-				class="absolute z-20 flex items-center justify-center rounded-xl bg-violet-500/90 px-10 py-6"
-			>
+				class="scale-90 md:scale-100 absolute z-20 flex items-center justify-center rounded-xl bg-violet-500/90 px-10 py-6">
 				<ValidateModal bind:formOutput />
 			</div>
 		{/if}
@@ -101,3 +99,5 @@
 {#if formOutput === 'success' || formOutput === 'validation failure'}
 	<div class="-z-1 absolute inset-0 h-screen w-screen overflow-hidden bg-neutral-900 opacity-90" />
 {/if}
+
+
