@@ -1,7 +1,6 @@
 import twilio from 'twilio';
 import type { Actions } from '@sveltejs/kit';
 import { fail } from '@sveltejs/kit';
-import { prisma } from '$lib/server/prisma';
 
 const accountSid = 'AC2fe4e7d6a110de275db95313acb6c299';
 const authToken = '4dd54669056c375fdb84a0e4aada0023';
@@ -17,12 +16,7 @@ let time: string | any;
 async function createUser(phoneNumber: string, time: string) {	
 	console.log("running Create user")
 	try{
-		await prisma.user.create({
-			data: {
-				phoneNumber,
-				time
-			}
-		})
+		console.log("meow")
 	} catch (err){
 		console.log(err)
 		return fail(500, {output: "failed to add to prisma"})
