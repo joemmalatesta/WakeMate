@@ -44,6 +44,9 @@ export const actions: Actions = {
 		phoneNumber = formData.get('phone');
 		time = formData.get('time');
 		createUser(phoneNumber, time)
+		return {
+			output: "test"
+		}
 	}
 	// 	const formData = await request.formData();
 	// 	phoneNumber = formData.get('phone');
