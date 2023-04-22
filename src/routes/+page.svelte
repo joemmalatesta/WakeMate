@@ -41,7 +41,7 @@
 			class="w-full rounded-t-lg p-3 text-xl text-black placeholder:text-center placeholder:text-neutral-700/80 md:text-2xl lg:w-3/4 2xl:w-1/3"
 			type="tel"
 			name="phone"
-			inputmode="numeric"
+			inputmode="numeric" 
 			id="phone"
 			placeholder="Your phone number"
 		/>
@@ -60,7 +60,7 @@
 						selectedTime = index;
 					}}>{time}</button
 				>
-			{/each}
+			{/each} 
 		</ul>
 		<input class="hidden" name="time" value={times[selectedTime] || null} />
 
