@@ -95,17 +95,16 @@ export const actions: Actions = {
 	validate: async ({ request }) => {
 		const formData = await request.formData();
 		let inputNumber: number | any = formData.get('code');
-		let timeZone: string | any = formData.get('timeZone')
+		let offset: string | any = formData.get('offset')
 		let localTime: string | any = formData.get('localTime')
-		console.log(timeZone, localTime)
-
+		console.log(offset)
 		// Stop if the numbers don't match. let them retry
 		if (inputNumber != validationNumber) {
 			return {
 				output: 'validation failure'
 			};
 		}
-		if (!(await createUser(phoneNumber, wakeUpTime, timeZone, localTime))) {
+		if (!(await createUser(phoneNumber, wakeUpTime, offset, localTime))) {
 			return;
 		}
 

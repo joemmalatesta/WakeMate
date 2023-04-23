@@ -13,13 +13,13 @@ const client = new MongoClient(uri, {
 
 
 // Create New User in DB, timeZone is the users local timezone
-async function createUser(phoneNumber: string, wakeUpTime: string, timeZone: string, localTime: string) {
+async function createUser(phoneNumber: string, wakeUpTime: string, offset: string, localTime: string) {
 	
 	try {
 		await client.connect();
 		const database = client.db('wake-up-call');
 		const collection = database.collection('users');
-		await collection.insertOne({ phoneNumber, wakeUpTime, signUpUTC: currentTime, signUpLocal: localTime, timeZone }).then(() => {
+		await collection.insertOne({ phoneNumber, wakeUpTime, signUpUTC: currentTime, signUpLocal: localTime, offset }).then(() => {
 			console.log(`Added ${phoneNumber} to DB at ${currentTime}.`);
 		});
 	} catch (err) {

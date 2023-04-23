@@ -1,12 +1,40 @@
 <script lang="ts">
+
 	export let formOutput: any;
 
 	//Put in a function so time is more accurate by running on form submit rather than form load
 	function getCurrentTime() {
-		const currentTime = new Date().toLocaleString();
-		return currentTime
+		const now = new Date();
+		const options: any = {
+			hour12: false,
+			timeZoneName: 'short'
+		};
+		const localTime = now.toLocaleString('en-US', options);
+		return localTime;
 	}
-	
+
+	function getTimeOffset() {
+		const now = new Date();
+		const options: any = {
+			weekday: 'short',
+			month: 'short',
+			day: 'numeric',
+			year: 'numeric',
+			hour: '2-digit',
+			minute: 'numeric',
+			second: 'numeric',
+			timeZoneName: 'short'
+		};
+		const localTime = now.toLocaleString('en-US', options);
+		const gmtOffset = now.getTimezoneOffset();
+		const sign = gmtOffset > 0 ? '-' : '+';
+		const hours = Math.abs(Math.floor(gmtOffset / 60));
+		const minutes = Math.abs(gmtOffset % 60);
+		const gmtTime = `GMT${sign}${hours.toString().padStart(2, '0')}:${minutes
+			.toString()
+			.padStart(2, '0')}`;
+		return (`${gmtTime}`);
+	}
 </script>
 
 <!-- Modal class used in the app.css to hide overflow when it is active. -->
@@ -19,8 +47,13 @@
 	<p class="text-sm">Enter the code from the text we sent</p>
 	<div class="flex items-center md:flex-row flex-col">
 		<!-- Pass users TimeZone with the form. Getting this on the server is no good. -->
-		<input type="text" name="timeZone" value={Intl.DateTimeFormat().resolvedOptions().timeZone} class="hidden">
-		<input type="text" name="localTime" value={getCurrentTime()} class="hidden">
+		<input
+			type="text"
+			name="offset"
+			value={getTimeOffset()}
+			class="hidden"
+		/>
+		<input type="text" name="localTime" value={getCurrentTime()} class="hidden" />
 		<input
 			type="text"
 			inputmode="numeric"
