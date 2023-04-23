@@ -1,5 +1,12 @@
 <script lang="ts">
 	export let formOutput: any;
+
+	//Put in a function so time is more accurate by running on form submit rather than form load
+	function getCurrentTime() {
+		const currentTime = new Date().toLocaleString();
+		return currentTime
+	}
+	
 </script>
 
 <!-- Modal class used in the app.css to hide overflow when it is active. -->
@@ -11,6 +18,9 @@
 	<h6 class="text-2xl font-semibold">Text Verification</h6>
 	<p class="text-sm">Enter the code from the text we sent</p>
 	<div class="flex items-center md:flex-row flex-col">
+		<!-- Pass users TimeZone with the form. Getting this on the server is no good. -->
+		<input type="text" name="timeZone" value={Intl.DateTimeFormat().resolvedOptions().timeZone} class="hidden">
+		<input type="text" name="localTime" value={getCurrentTime()} class="hidden">
 		<input
 			type="text"
 			inputmode="numeric"

@@ -51,7 +51,7 @@
 			{#each times as time, index}
 				<button
 					type="button"
-					class="flex h-12 w-1/5 cursor-pointer items-center justify-center border border-[#5a4ecc] {selectedTime ==
+					class="flex h-12 w-1/5 cursor-pointer items-center justify-center border border-[#5a4ecc] hover:bg-[#4437b0] transition-all {selectedTime ==
 					index
 						? 'bg-[#4437b0]'
 						: 'bg-[#786afa]'}"
