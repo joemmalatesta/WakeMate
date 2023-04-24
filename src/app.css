@@ -11,7 +11,7 @@ html{
 }
 
 body{
-    @apply bg-[#17123b] text-white;
+    @apply bg-[#17123b] text-white mx-4 mt-5 lg:mx-40;
     font-family: 'Inter', sans-serif;
 }
 

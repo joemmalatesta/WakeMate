@@ -1,25 +1,27 @@
-import twilio from 'twilio';
 import type { Actions } from '@sveltejs/kit';
 import { fail } from '@sveltejs/kit';
+import twilio from 'twilio';
 import { TWILIO_ACCOUNT_SID } from '$env/static/private';
 import { TWILIO_AUTH_TOKEN } from '$env/static/private';
-import { createUser, checkDuplicate } from '../lib/server/mongo/mongo';
+import { getUserDetails, checkDuplicate } from '../../lib/server/mongo/mongo';
 // ******
 //USING THE OUTPUT VALUES AS FRONT END INDICATORS SO DON'T CHANGE THESE
 // ******
 
-
-
-//Initalize Twilio Client. Maybe should do this per request but whatever.
+//Initialize Twilio Client. Maybe should do this per request but whatever.
 const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
-
-
 
 // THINGS WE NEED!
 let validationNumber: number;
 let phoneNumber: number | any;
-let wakeUpTime: string | any;
 
+/**
+ *
+ *
+ * @param phoneNumber - raw phone number
+ * @returns formats phone number into (xxx) xxx-xxxx
+ *
+ */
 function formatPhoneNumber(phoneNumber: string): string {
 	// Remove all non-numeric characters from the phone number string
 	const numericPhoneNumber = phoneNumber.replace(/\D/g, '');
@@ -31,7 +33,8 @@ function formatPhoneNumber(phoneNumber: string): string {
 }
 
 export const actions: Actions = {
-	sendValidation: async ({ request }) => {
+	sendUpdateValidation: async ({ request }) => {
+		console.log('getting request');
 		const formData = await request.formData();
 		//Store, Validate, and Format Phone Number
 		phoneNumber = formData.get('phone');
@@ -43,22 +46,14 @@ export const actions: Actions = {
 			};
 		}
 		phoneNumber = formatPhoneNumber(phoneNumber);
-
-		// Make sure there is a time
-		wakeUpTime = formData.get('time');
-		if (!wakeUpTime) {
-			return {
-				output: 'time failure'
-			};
-		}
-
-		console.log(wakeUpTime, phoneNumber);
+		console.log(phoneNumber);
 
 		//Check if phone number already in the database
-		if (!(await checkDuplicate(phoneNumber))) {
+		if (await checkDuplicate(phoneNumber)) {
+			console.log('what');
 			return {
-				output: "duplicate"
-			}
+				output: 'not duplicate'
+			};
 		}
 
 		//Create 6 digit Verification number for the code
@@ -66,9 +61,7 @@ export const actions: Actions = {
 		const max = 999999;
 		validationNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
-
-
-		//Send verification number first. 
+		//Send verification number first.
 		try {
 			const sendMessage = await twilioClient.messages.create({
 				body: `Your wake up call code is: ${validationNumber}`,
@@ -87,43 +80,24 @@ export const actions: Actions = {
 		};
 	},
 
-
-
-	// After phone number is validated, 
+	// After phone number is validated,
 	validate: async ({ request }) => {
 		const formData = await request.formData();
 		let inputNumber: number | any = formData.get('code');
-		let offset: string | any = formData.get('offset')
-		let localTime: string | any = formData.get('localTime')
-		console.log(offset)
 		// Stop if the numbers don't match. let them retry
 		if (inputNumber != validationNumber) {
 			return {
 				output: 'validation failure'
 			};
 		}
-		if (!(await createUser(phoneNumber, wakeUpTime, offset, localTime))) {
-			return;
-		}
 
-		try {
-			const sendMessage = await twilioClient.messages
-				.create({
-					body: `Welcome to your most productive self.\nYou'll get 7 free wake up calls starting tomorrow at ${wakeUpTime}`,
-					to: phoneNumber,
-					from: '+18335197545'
-				})
-				.then((message) => console.log(message.sid));
-		} catch (error) {
-			console.error(error);
-			return fail(500, {
-				output: 'validation failure'
-			});
-		}
+		let user: any = await getUserDetails(phoneNumber);
+		const { userPhoneNumber = user.phoneNumber, wakeUpTime, signUpUTC, signUpLocal, offset } = user;
+		console.log(user)
 
 		return {
 			output: 'validation success',
-			time: wakeUpTime
+			user: user
 		};
 	}
 };

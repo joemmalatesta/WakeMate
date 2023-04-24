@@ -23,7 +23,7 @@
 </script>
 
 <!-- INTRO BIT -->
-<main class="relative mx-4 mt-16 lg:mx-40">
+<main class="relative mt-10">
 	<div class="relative text-center text-5xl font-extrabold md:text-7xl">
 		<h1 class="">{formOutput === 'validation success' ? "Success": "Take back your morning"}</h1>
 		<p class="absolute inset-0 opacity-40 blur-md">{formOutput === 'validation success' ? "Success": "Take back your morning"}</p>
@@ -76,7 +76,7 @@
 		{:else if formOutput === 'number failure'}
 			<p class="font-thin text-red-400">Enter valid phone number</p>
 		{:else if formOutput === 'duplicate'}
-			<p class="font-thin text-red-400">Number already Registered</p>
+			<p class="font-thin text-red-400">Number already Registered <span><a class="underline underline-offset-2 hover:underline-offset-4 transition-all" href="/update">Update Instead?</a></span></p>
 		{/if}
 
 		<!-- Modal if form success -->
@@ -93,6 +93,8 @@
 		<About />
 </section> -->
 
+
+<!-- PRICING -->
 	<section id="pricing" class="my-40">
 		<div class="relative mb-7 text-center text-4xl font-extrabold md:text-6xl">
 			<h1 class="">Pricing</h1>
