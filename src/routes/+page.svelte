@@ -47,14 +47,14 @@ import Pricing from '../components/Pricing.svelte';
 		class="relative mt-8 flex flex-col items-center justify-center"
 	>
 		<input
-			class="w-full rounded-t-lg p-3 text-xl text-black placeholder:text-center placeholder:text-neutral-700/80 md:text-2xl lg:w-3/4 2xl:w-1/3"
+			class="w-full rounded-t-lg p-3 text-xl text-black placeholder:text-center placeholder:text-neutral-700/80 md:text-2xl lg:w-3/4 2xl:w-2/5"
 			type="tel"
 			name="phone"
 			inputmode="numeric"
 			id="phone"
 			placeholder="Your phone number"
 		/>
-		<ul class="flex w-full flex-wrap items-center justify-between lg:w-3/4 2xl:w-1/3">
+		<ul class="flex w-full flex-wrap items-center justify-between lg:w-3/4 2xl:w-2/5">
 			{#each times as time, index}
 				<button
 					type="button"
@@ -75,7 +75,7 @@ import Pricing from '../components/Pricing.svelte';
 
 		<button
 			type="submit"
-			class="w-full rounded-b-lg bg-[#4437b0] p-3 text-xl font-semibold drop-shadow-lg hover:bg-[#2e257a] md:text-2xl lg:w-3/4 2xl:w-1/3"
+			class="w-full rounded-b-lg bg-[#4437b0] p-3 text-xl font-semibold drop-shadow-lg hover:bg-[#2e257a] md:text-2xl lg:w-3/4 2xl:w-2/5"
 			>Wake me up {times[selectedTime] ? `at ${times[selectedTime]}` : ''}</button
 		>
 		{#if formOutput === 'time failure'}

@@ -25,7 +25,7 @@
 
 <form action="?/sendUpdateValidation" method="POST" class="flex justify-center items-center flex-col mt-8">
     <input
-			class="w-full rounded-t-lg p-3 text-xl text-black placeholder:text-center placeholder:text-neutral-700/80 md:text-2xl lg:w-3/4 2xl:w-1/3"
+			class="w-full rounded-t-lg p-3 text-xl text-black placeholder:text-center placeholder:text-neutral-700/80 md:text-2xl lg:w-3/4 2xl:w-2/5"
 			type="tel"
 			name="phone"
 			inputmode="numeric"
@@ -34,7 +34,7 @@
 		/>
         <button
 			type="submit"
-			class="w-full rounded-b-lg bg-[#4437b0] p-3 text-xl font-semibold drop-shadow-lg hover:bg-[#2e257a] md:text-2xl lg:w-3/4 2xl:w-1/3"
+			class="w-full rounded-b-lg bg-[#4437b0] p-3 text-xl font-semibold drop-shadow-lg hover:bg-[#2e257a] md:text-2xl lg:w-3/4 2xl:w-2/5"
 			>Submit</button
 		>
 		{#if formOutput === 'number failure'}
