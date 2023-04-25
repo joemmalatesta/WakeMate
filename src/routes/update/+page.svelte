@@ -14,7 +14,7 @@
 </script>
 <!-- HERE IS WHERE YOU UNSUBSRIBE AS WELL -->
 
-<main class="relative mt-10">
+<main class="relative">
 <div class="relative text-center text-5xl font-extrabold md:text-7xl">
     <h1 class="">Change how you wake up</h1>
     <p class="absolute inset-0 opacity-40 blur-md">Change how you wake up</p>

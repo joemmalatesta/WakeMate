@@ -5,7 +5,7 @@
             numbers: 1,
 			price: 'Free',
 			calls: 1,
-			texts: "❌"
+			texts: "0"
 		},
 		{
 			type: 'Basic',
@@ -21,13 +21,13 @@
 			calls: 'Up to 3',
 			texts: 3
 		},
-        {
-			type: 'Family',
-            numbers: "Up to 5",
-			price: '$25/mo',
-			calls: 'Up to 3',
-			texts: 3
-		}
+        // {
+		// 	type: 'Family',
+        //     numbers: "Up to 5",
+		// 	price: '$25/mo',
+		// 	calls: 'Up to 3',
+		// 	texts: 3
+		// }
         
 	];
 </script>
