@@ -52,3 +52,4 @@ async function subscribeCustomer(email: string, planId: string): Promise<void> {
 createPlans().then(() => {
   subscribeCustomer('customer@example.com', 'pro');
 });
+
