@@ -7,17 +7,17 @@ const stripe = new Stripe(STRIPE_SECRET_KEY, {
 
 const plans = [
 	{
-		id: 'basic',
+		id: 'Basic',
 		name: "Basic Plan",
 		price: 500, // Price in cents
 	},
 	{
-		id: 'pro',
+		id: 'Pro',
 		name: "Pro Plan",
-		price: 500, // Price in cents
+		price: 1000, // Price in cents
 	},
 	{
-		id: 'family',
+		id: 'Family',
 		name: "Family Plan",
 		price: 2500, // Price in cents
 	}
@@ -40,16 +40,18 @@ async function createPlans(): Promise<void> {
 
 // Subscribe a customer to a plan
 async function subscribeCustomer(email: string, planId: string): Promise<void> {
-  const customer = await stripe.customers.create({ email });
-  const subscription = await stripe.subscriptions.create({
-    customer: customer.id,
-    items: [{ plan: planId }]
-  });
-  console.log(`Subscribed ${email} to ${planId} plan with subscription id ${subscription.id}`);
+  console.log(email, planId)
+  console.log(stripe.plans.retrieve(planId))
+  createPlans()
+
+  // const customer = await stripe.customers.create({ email });
+  // const subscription = await stripe.subscriptions.create({
+  //   customer: customer.id,
+  //   items: [{ plan: planId }]
+  // });
+  // console.log(`Subscribed ${email} to ${planId} plan with subscription id ${subscription.id}`);
 }
 
-// Example usage
-createPlans().then(() => {
-  subscribeCustomer('customer@example.com', 'pro');
-});
 
+
+export {subscribeCustomer}

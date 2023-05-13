@@ -1,11 +1,12 @@
-<script>
+<script lang='ts'>
 	let pricingOptions = [
 		{
 			type: 'Trial',
             numbers: 1,
 			price: 'Free',
 			calls: 1,
-			texts: "0"
+			texts: "0",
+			buttonText: "Try for a week"
 		},
 		{
 			type: 'Basic',
@@ -30,6 +31,24 @@
 		// }
         
 	];
+
+
+
+	async function purchase(purchaseType: string){
+		if (purchaseType == "Trial") {
+			return
+		}
+		const response = await fetch('/api/purchase', {
+            method: 'POST',
+            body: JSON.stringify({ purchaseType }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        });
+
+        total = await response.json();
+	}
+
 </script>
 
 <div class="flex justify-around md:flex-row flex-col items-center flex-wrap">
@@ -50,7 +69,7 @@
 					<p>{option.texts}</p>
 				</div>
 			</ul>
-			<button class="w-full bg-indigo-400 hover:bg-indigo-500 p-2 rounded-lg text-black">Purchase</button>
+			<button on:click={() => {purchase(option.type)}} class="w-full bg-indigo-400 hover:bg-indigo-500 p-2 rounded-lg text-black">{option.buttonText || "Purhcase"}</button>
 		</div>
 	{/each}
 </div>
