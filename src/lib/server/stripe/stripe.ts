@@ -1,6 +1,7 @@
 import Stripe from 'stripe';
 import { STRIPE_SECRET_KEY } from '$env/static/private';
 import { STRIPE_PUSBLISHABLE_KEY } from '$env/static/private';
+import { error, json } from '@sveltejs/kit';
 const stripe = new Stripe(STRIPE_SECRET_KEY, {
 	apiVersion: '2022-11-15'
 });
@@ -24,7 +25,7 @@ const plans = [
 ];
 
 // Create the plans in Stripe
-async function createPlans(): Promise<void> {
+async function createPlans() {
   for (const plan of plans) {
     await stripe.plans.create({
       amount: plan.price,
@@ -39,19 +40,33 @@ async function createPlans(): Promise<void> {
 }
 
 // Subscribe a customer to a plan
-async function subscribeCustomer(email: string, planId: string): Promise<void> {
-  console.log(email, planId)
-  console.log(stripe.plans.retrieve(planId))
-  createPlans()
+async function createCheckout(planId: number) {
+  console.log("hitting createCheckout")
+  try{
+    console.log("trying checkout")
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'subscription',
+      success_url: 'https://wakeup.joemmalatesta.com/success',
+      cancel_url: 'https://wakeup.joemmalatesta.com/#pricing',
+      line_items: [{
+        price: plans[planId].id,
+        quantity: 1
+      }]
+    })
+    console.log(session.url)
+    return {
+      url: session.url
+    }
 
-  // const customer = await stripe.customers.create({ email });
-  // const subscription = await stripe.subscriptions.create({
-  //   customer: customer.id,
-  //   items: [{ plan: planId }]
-  // });
-  // console.log(`Subscribed ${email} to ${planId} plan with subscription id ${subscription.id}`);
+  }
+  catch (e){
+    throw error(500, {
+      message: `${e}`
+    })
+  }
 }
 
 
 
-export {subscribeCustomer}
+export {createCheckout}

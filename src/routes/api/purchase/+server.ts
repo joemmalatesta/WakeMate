@@ -1,10 +1,10 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import {subscribeCustomer } from '../../../lib/server/stripe/stripe';
+import {createCheckout } from '../../../lib/server/stripe/stripe';
 
 export const POST = (async ({ request }) => {
-    const { purchaseType } = await request.json();
-    console.log(purchaseType)
-    subscribeCustomer("joemmalatesta@gmail.com", purchaseType)
-    return json(purchaseType)
+    const { purchaseId } = await request.json();
+    console.log(purchaseId)
+    const url = await createCheckout(purchaseId)
+    return json(url)
 }) satisfies RequestHandler;

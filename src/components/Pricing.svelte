@@ -1,6 +1,7 @@
 <script lang='ts'>
 	let pricingOptions = [
 		{
+			id: -1,
 			type: 'Trial',
             numbers: 1,
 			price: 'Free',
@@ -9,6 +10,7 @@
 			buttonText: "Try for a week"
 		},
 		{
+			id: 0,
 			type: 'Basic',
             numbers: 1,
 			price: '$5/mo',
@@ -16,6 +18,7 @@
 			texts: 1
 		},
 		{
+			id: 1,
 			type: 'Pro',
             numbers: 1,
 			price: '$10/mo',
@@ -33,20 +36,28 @@
 	];
 
 
-
-	async function purchase(purchaseType: string){
-		if (purchaseType == "Trial") {
+	async function purchase(purchaseId: number){
+		if (purchaseId == -1) {
 			return
 		}
-		const response = await fetch('/api/purchase', {
+		try{
+			const response = await fetch('/api/purchase', {
             method: 'POST',
-            body: JSON.stringify({ purchaseType }),
+            body: JSON.stringify({ purchaseId }),
             headers: {
                 'content-type': 'application/json'
             }
         });
 
-        total = await response.json();
+		const {url: stripeUrl} = await response.json()
+		console.log(stripeUrl)
+		window.location.href = stripeUrl
+		}
+		catch (e){
+			console.log(e)
+			return
+		}
+		
 	}
 
 </script>
@@ -69,7 +80,7 @@
 					<p>{option.texts}</p>
 				</div>
 			</ul>
-			<button on:click={() => {purchase(option.type)}} class="w-full bg-indigo-400 hover:bg-indigo-500 p-2 rounded-lg text-black">{option.buttonText || "Purhcase"}</button>
+			<button on:click={() => {purchase(option.id)}} class="w-full bg-indigo-400 hover:bg-indigo-500 p-2 rounded-lg text-black">{option.buttonText || "Purhcase"}</button>
 		</div>
 	{/each}
 </div>
