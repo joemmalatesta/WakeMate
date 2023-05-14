@@ -8,17 +8,17 @@ const stripe = new Stripe(STRIPE_SECRET_KEY, {
 
 const plans = [
 	{
-		id: 'Basic',
+		id: 'basic-plan',
 		name: "Basic Plan",
 		price: 500, // Price in cents
 	},
 	{
-		id: 'Pro',
+		id: 'pro-plan',
 		name: "Pro Plan",
 		price: 1000, // Price in cents
 	},
 	{
-		id: 'Family',
+		id: 'family-plan',
 		name: "Family Plan",
 		price: 2500, // Price in cents
 	}

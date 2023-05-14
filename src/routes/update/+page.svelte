@@ -12,7 +12,7 @@
 	
 	
 </script>
-<!-- HERE IS WHERE YOU UNSUBSRIBE AS WELL -->
+<!-- HERE IS WHERE YOU UNSUBSCRIBE AS WELL -->
 
 <main class="relative">
 <div class="relative text-center text-5xl font-extrabold md:text-7xl">
@@ -22,7 +22,7 @@
 <p class="mt-4 text-center font-extrabold text-[#d2cff0] md:text-xl">
     Change the time you wake up, what days you get called, your time zone, or just pause the calls all together.    
 </p>
-
+{#if !formUser}
 <form action="?/sendUpdateValidation" method="POST" class="flex justify-center items-center flex-col mt-8">
     <input
 			class="w-full rounded-t-lg p-3 text-xl text-black placeholder:text-center placeholder:text-neutral-700/80 md:text-2xl lg:w-3/4 2xl:w-2/5"
@@ -53,12 +53,24 @@
 			</div>
 		{/if}
 </form>
+{/if}
 
 
 	{#if formUser}
-		{formUser.phoneNumber}
+	<div class="flex flex-col justify-center items-center mt-10">
+		<div class="text-4xl py-4">{formUser.phoneNumber}</div>
+		<button class="w-60 text-xl p-4 rounded-lg bg-indigo-500 hover:bg-indigo-600">Pause Service</button>
+		<p class="text-sm">resume at any time</p>
+		<div class="text-xl pt-4">Wake Up Time: {formUser.wakeUpTime}
+		</div>
+		<button class="w-50 p-2 rounded-lg bg-indigo-500 hover:bg-red-500">Unsubscribe</button>
+	</div>
+		
+		
 	{/if}
 </main>
+
+<!-- Modal black out ! -->
 {#if formOutput === 'success' || formOutput === 'validation failure'}
 	<div class="-z-1 absolute inset-0 h-screen w-screen overflow-hidden bg-neutral-900 opacity-90" />
 {/if}
