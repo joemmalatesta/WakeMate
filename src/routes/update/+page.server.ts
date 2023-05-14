@@ -71,7 +71,7 @@ export const actions: Actions = {
 		} catch (error) {
 			console.error(error);
 			return fail(500, {
-				output: 'number failure'
+				output: 'number failure' 
 			});
 		}
 
