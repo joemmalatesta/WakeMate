@@ -47,8 +47,8 @@ async function createCheckout(planId: number) {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'subscription',
-      success_url: 'https://wakeup.joemmalatesta.com/success',
-      cancel_url: 'https://wakeup.joemmalatesta.com/#pricing',
+      success_url: 'https://WakeMate.joemmalatesta.com/success',
+      cancel_url: 'https://WakeMate.joemmalatesta.com/#pricing',
       line_items: [{
         price: plans[planId].id,
         quantity: 1
