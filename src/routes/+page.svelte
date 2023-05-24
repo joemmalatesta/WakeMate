@@ -1,3 +1,8 @@
+<svelte:head>
+	<title>WakeMate</title>
+	<meta name="description" content="Take back your morning and stay motivated throughout the day with WakeMate, a wake up call service focused on self improvement">
+</svelte:head>
+
 <script lang="ts">
 	import Benefits from '../components/Benefits.svelte';
 import Pricing from '../components/Pricing.svelte';

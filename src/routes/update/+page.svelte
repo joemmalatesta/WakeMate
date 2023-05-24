@@ -1,3 +1,9 @@
+<svelte:head>
+	<title>WakeMate | Update</title>
+	<meta name="description" content="Update wake up settings.">
+</svelte:head>
+
+
 <script lang="ts">
     import ValidateModal from '../../components/ValidateForm.svelte';
     let phoneNumber: string;
