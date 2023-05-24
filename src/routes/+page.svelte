@@ -103,7 +103,7 @@ import Pricing from '../components/Pricing.svelte';
 		{/if}
 	</form>
 
-	<section id="benefits" class="mt-40 flex flex-col justify-center">
+	<section id="benefits" class="lg:mt-40 mt-20 flex flex-col justify-center">
 		<div class="relative text-center text-4xl font-extrabold md:text-6xl">
 			<h1 class="">Benefits</h1>
 			<p class="absolute inset-0 opacity-40 blur">Benefits</p>
@@ -115,7 +115,7 @@ import Pricing from '../components/Pricing.svelte';
 	</section>
 
 	<!-- PRICING -->
-	<section id="pricing" class="mt-40">
+	<section id="pricing" class="lg:mt-40 mt-20">
 		<div class="relative mb-7 text-center text-4xl font-extrabold md:text-6xl">
 			<h1 class="">Pricing</h1>
 			<p class="absolute inset-0 opacity-40 blur">Pricing</p>
