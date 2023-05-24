@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Benefits from '../components/Benefits.svelte';
-import Pricing from '../components/Pricing.svelte';
+	import Pricing from '../components/Pricing.svelte';
 	import ValidateModal from '../components/ValidateForm.svelte';
 
 	export let form;
@@ -21,14 +21,15 @@ import Pricing from '../components/Pricing.svelte';
 		'8:30am'
 	];
 	let selectedTime = -1;
+	let weekends: boolean;
 </script>
 
 <!-- INTRO BIT -->
 <main class="relative">
 	<div class="relative text-center text-5xl font-extrabold md:text-7xl">
-		<h1 class="">{formOutput === 'validation success' ? 'Success' : 'Take back your morning'}</h1>
+		<h1 class="">{formOutput === 'validation success' ? 'Welcome to WakeMate!' : 'Take back your morning'}</h1>
 		<p class="absolute inset-0 opacity-40 blur-md">
-			{formOutput === 'validation success' ? 'Success' : 'Take back your morning'}
+			{formOutput === 'validation success' ? 'Welcome to WakeMate!' : 'Take back your morning'}
 		</p>
 	</div>
 	<!-- <p class="mt-4 text-center font-extrabold text-[#d2cff0] md:text-2xl">
@@ -37,7 +38,7 @@ import Pricing from '../components/Pricing.svelte';
 	<p class=" text-center font-extrabold text-[#d2cff0] md:text-2xl mt-4">
 		{formOutput === 'validation success'
 			? `We'll wake you up tomorrow at ${formTime}`
-			: "Get a wake up call each morning, giving you motivation for the day ahead"}
+			: 'Get a wake up call each morning, giving you motivation for the day ahead'}
 	</p>
 
 	<!-- NUMBER AND TIME FORM -->
@@ -72,6 +73,37 @@ import Pricing from '../components/Pricing.svelte';
 			{/each}
 		</ul>
 		<input class="hidden" name="time" value={times[selectedTime] || null} />
+		<div class="flex justify-around w-full lg:w-3/4 2xl:w-2/5 bg-indigo-400">
+			<div
+				class="p-2 text-center cursor-pointer w-1/2 border border-[#5a4ecc] hover:bg-[#4437b0] text-lg {weekends ==
+				true
+					? 'bg-[#4437b0]'
+					: 'bg-[#786afa]'}"
+				on:click={() => {
+					weekends = true;
+				}}
+				on:keypress={() => {
+					weekends = true;
+				}}
+			>
+				Weekends
+			</div>
+			<div
+				class="p-2 text-center cursor-pointer w-1/2 border border-[#5a4ecc] hover:bg-[#4437b0] text-lg {weekends ==
+				false
+					? 'bg-[#4437b0]'
+					: 'bg-[#786afa]'}"
+				on:click={() => {
+					weekends = false;
+				}}
+				on:keypress={() => {
+					weekends = false;
+				}}
+			>
+				No Weekends
+			</div>
+		</div>
+		<input class="hidden" name="weekends" value={weekends || null} />
 
 		<button
 			type="submit"
@@ -82,6 +114,8 @@ import Pricing from '../components/Pricing.svelte';
 			<p class="font-thin text-red-400">Select wake up time</p>
 		{:else if formOutput === 'number failure'}
 			<p class="font-thin text-red-400">Enter valid phone number</p>
+		{:else if formOutput === 'weekends failure'}
+			<p class="font-thin text-red-400">Select weekend preferences</p>
 		{:else if formOutput === 'duplicate'}
 			<p class="font-thin text-red-400">
 				Number already Registered <span
@@ -108,8 +142,8 @@ import Pricing from '../components/Pricing.svelte';
 			<h1 class="">Benefits</h1>
 			<p class="absolute inset-0 opacity-40 blur">Benefits</p>
 		</div>
-		<p class="mt-4 text-center font-extrabold text-[#d2cff0] md:text-xl mx-16">
-			See the advantages Wake Up Call has over your everyday alarm    
+		<p class="mt-4 text-center font-extrabold text-[#d2cff0] md:text-xl mx-8">
+			See the advantages Wake Up Call has over your everyday alarm
 		</p>
 		<Benefits />
 	</section>
@@ -119,11 +153,15 @@ import Pricing from '../components/Pricing.svelte';
 		<div class="relative mb-7 text-center text-4xl font-extrabold md:text-6xl">
 			<h1 class="">Pricing</h1>
 			<p class="absolute inset-0 opacity-40 blur">Pricing</p>
-			
 		</div>
-		<p class="my-4 text-center font-extrabold text-[#d2cff0] md:text-xl mx-16">
-				Get more from your mornings, and stay focused throughout the day. <span><a class="underline-offset-2 hover:underline-offset-4 underline transition-all" href="https://joemmalatesta.com/#contact">Let me know</a></span> if need some help, though    
-			</p>
+		<p class="my-4 text-center font-extrabold text-[#d2cff0] md:text-xl mx-6">
+			Get more from your mornings, and stay focused throughout the day. <span
+				><a
+					class="underline-offset-2 hover:underline-offset-4 underline transition-all"
+					href="https://joemmalatesta.com/#contact">Let me know</a
+				></span
+			> if need some help, though
+		</p>
 		<Pricing />
 	</section>
 </main>

@@ -26,7 +26,8 @@ async function createUser(
 	phoneNumber: string,
 	wakeUpTime: string,
 	offset: string,
-	localTime: string
+	localTime: string,
+	weekends: boolean,
 ) {
 	try {
 		await client.connect();
@@ -44,8 +45,12 @@ async function createUser(
 				phoneNumber,
 				wakeUpTime,
 				signUpUTC: currentTime,
+				lastUpdated: currentTime,
 				signUpLocal: localTime,
-				offset
+				offset,
+				status: "free",
+				weekends,
+				active: true
 			})
 			.then(() => {
 				console.log(`Added ${phoneNumber} to DB at ${currentTime}.`);
