@@ -99,5 +99,18 @@ export const actions: Actions = {
 			output: 'validation success',
 			user: user
 		};
+	},
+
+
+	//After validation, when user clicks save
+	updateUser: async ({ request }) => { 
+
 	}
 };
+
+
+
+
+
+
+

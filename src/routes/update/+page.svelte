@@ -10,6 +10,7 @@
 		console.log(formUser[0] || "")
 	}
 	
+
 	
 </script>
 <!-- HERE IS WHERE YOU UNSUBSCRIBE AS WELL -->
@@ -19,9 +20,11 @@
     <h1 class="">Change how you wake up</h1>
     <p class="absolute inset-0 opacity-40 blur-md">Change how you wake up</p>
 </div>
+{#if !formUser}
 <p class="mt-4 text-center font-extrabold text-[#d2cff0] md:text-xl">
     Change the time you wake up, what days you get called, your time zone, or just pause the calls all together.    
 </p>
+{/if}
 {#if !formUser}
 <form action="?/sendUpdateValidation" method="POST" class="flex justify-center items-center flex-col mt-8">
     <input
@@ -57,14 +60,19 @@
 
 
 	{#if formUser}
-	<div class="flex flex-col justify-center items-center mt-10">
-		<div class="text-4xl py-4">{formUser.phoneNumber}</div>
-		<button class="w-60 text-xl p-4 rounded-lg bg-indigo-500 hover:bg-indigo-600">Pause Service</button>
-		<p class="text-sm">resume at any time</p>
+	<form class="flex flex-col justify-center items-center ">
+		<div class=" py-4 flex md:flex-row flex-col items-center md:items-end justify-center md:gap-5 gap-1">
+			<p class="md:text-6xl text-3xl">{formUser.phoneNumber}</p>
+			<p class="md:text-4xl text-2xl">{formUser.status} plan</p>
+		</div>
+		<button type="button" class="w-72 text-xl p-4 py-5 rounded-lg bg-indigo-500 hover:bg-indigo-600">{formUser.active ? "Pause Service":"Resume Service"}</button>
+			<input type="text" class="hidden" name="active" >
 		<div class="text-xl pt-4">Wake Up Time: {formUser.wakeUpTime}
 		</div>
 		<button class="w-50 p-2 rounded-lg bg-indigo-500 hover:bg-red-500">Unsubscribe</button>
-	</div>
+		{formUser.active}
+		<button type="submit">Save</button>
+	</form>
 		
 		
 	{/if}

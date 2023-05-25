@@ -116,4 +116,44 @@ async function getUserDetails(phoneNumber: string) {
 	}
 }
 
-export { createUser, checkDuplicate, getUserDetails };
+
+/**
+ * Overwrites specific values for a user.
+ *
+ * @param phoneNumber - formatted phone number
+ * @param values - Key-value pairs representing the values to be overwritten
+ *
+ * @returns True if the user was successfully updated, false if there was an error
+ */
+async function updateUser(phoneNumber: string, values: object) {
+	try {
+		await client.connect();
+		const database = client.db('wake-up-call');
+		const collection = database.collection('users');
+
+		// Check if user exists
+		const existingUser = await collection.findOne({ phoneNumber });
+		if (!existingUser) {
+			console.log(`Phone number ${phoneNumber} doesn't exist in the database.`);
+			return false;
+		}
+
+		// Update user's data with new values
+		const updatedUser = { ...existingUser, ...values, lastUpdated: currentTime };
+
+		// Update user in the database
+		await collection.updateOne({ phoneNumber }, { $set: updatedUser });
+
+		console.log(`User ${phoneNumber} updated at ${currentTime}.`);
+		return true;
+	} catch (err) {
+		console.log(err);
+		return false;
+	} finally {
+		await client.close();
+	}
+}
+
+
+
+export { createUser, checkDuplicate, getUserDetails, updateUser };
