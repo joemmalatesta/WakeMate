@@ -153,7 +153,12 @@
 							? 'bg-red-600/80'
 							: 'bg-green-600/80'} {active == "false" ? 'hover:bg-red-700/80' : 'hover:bg-green-700/80'}"
 						on:click={() => {
-							active = !active;
+							if (active == "false"){
+								active = "true"
+							}
+							else{
+								active = ' false'
+							}
 						}}>{active == "false" ? 'Inactive' : 'Active'}</button
 					>
 				</div>
