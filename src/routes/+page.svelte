@@ -21,7 +21,7 @@
 		'8:30am'
 	];
 	let selectedTime = -1;
-	let weekends: boolean;
+	let weekends: any = -1;
 </script>
 
 <!-- INTRO BIT -->
@@ -103,7 +103,8 @@
 				No Weekends
 			</div>
 		</div>
-		<input class="hidden" name="weekends" value={weekends || null} />
+		<!-- Can't use undefined, null, -1 what CAN I DO?> -->
+		<input class="hidden" name="weekends" value={weekends} />
 
 		<button
 			type="submit"

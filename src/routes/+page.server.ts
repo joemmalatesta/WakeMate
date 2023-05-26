@@ -54,7 +54,8 @@ export const actions: Actions = {
 		}
 		weekends = formData.get("weekends")
 		console.log(weekends)
-		if (!weekends) {
+		console.log(weekends == -1)
+		if (weekends == -1) {
 			return{
 				output: "weekends failure"
 			}
