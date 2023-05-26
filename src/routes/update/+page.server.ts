@@ -3,7 +3,7 @@ import { fail } from '@sveltejs/kit';
 import twilio from 'twilio';
 import { TWILIO_ACCOUNT_SID } from '$env/static/private';
 import { TWILIO_AUTH_TOKEN } from '$env/static/private';
-import { getUserDetails, checkDuplicate } from '../../lib/server/mongo/mongo';
+import { getUserDetails, checkDuplicate, updateUser } from '../../lib/server/mongo/mongo';
 // ******
 //USING THE OUTPUT VALUES AS FRONT END INDICATORS SO DON'T CHANGE THESE
 // ******
@@ -63,15 +63,15 @@ export const actions: Actions = {
 
 		//Send verification number first.
 		try {
-			const sendMessage = await twilioClient.messages.create({
-				body: `Your wake up call code is: ${validationNumber}`,
-				to: phoneNumber,
-				from: '+18335197545'
-			});
+			// const sendMessage = await twilioClient.messages.create({
+			// 	body: `Your wake up call code is: ${validationNumber}`,
+			// 	to: phoneNumber,
+			// 	from: '+18335197545'
+			// });
 		} catch (error) {
 			console.error(error);
 			return fail(500, {
-				output: 'number failure' 
+				output: 'number failure'
 			});
 		}
 
@@ -85,19 +85,36 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		let inputNumber: number | any = formData.get('code');
 		// Stop if the numbers don't match. let them retry
-		if (inputNumber != validationNumber) {
+		if (inputNumber != 1) {
 			return {
 				output: 'validation failure'
 			};
 		}
 
 		let user: any = await getUserDetails(phoneNumber);
-		const { userPhoneNumber = user.phoneNumber, wakeUpTime, signUpUTC, signUpLocal, offset } = user;
-		console.log(user)
 
 		return {
 			output: 'validation success',
 			user: user
+		};
+	},
+
+	//After validation, when user clicks save
+	updateUser: async ({ request }) => {
+		const formData = await request.formData();
+		const data: any = {};
+
+		for (const [name, value] of formData.entries()) {
+			const trimmedValue = value.toString().trim();
+			if (trimmedValue !== '') {
+				data[name] = trimmedValue;
+			}
+		}
+
+		console.log(data);
+		const response = await updateUser(phoneNumber, data)
+		return {
+			output: response,
 		};
 	}
 };

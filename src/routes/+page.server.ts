@@ -19,6 +19,7 @@ const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 let validationNumber: number;
 let phoneNumber: number | any;
 let wakeUpTime: string | any;
+let weekends: boolean | any
 
 function formatPhoneNumber(phoneNumber: string): string {
 	// Remove all non-numeric characters from the phone number string
@@ -50,6 +51,14 @@ export const actions: Actions = {
 			return {
 				output: 'time failure'
 			};
+		}
+		weekends = formData.get("weekends")
+		console.log(weekends)
+		console.log(weekends == -1)
+		if (weekends == -1) {
+			return{
+				output: "weekends failure"
+			}
 		}
 
 		console.log(wakeUpTime, phoneNumber);
@@ -102,7 +111,7 @@ export const actions: Actions = {
 				output: 'validation failure'
 			};
 		}
-		if (!(await createUser(phoneNumber, wakeUpTime, offset, localTime))) {
+		if (!(await createUser(phoneNumber, wakeUpTime, offset, localTime, weekends))) {
 			return;
 		}
 
