@@ -60,7 +60,7 @@
 
 
 	{#if formUser}
-	<form class="flex flex-col justify-center items-center ">
+	<form action="?/updateUser" method="POST" class="flex flex-col justify-center items-center ">
 		<div class=" py-4 flex md:flex-row flex-col items-center md:items-end justify-center md:gap-5 gap-1">
 			<p class="md:text-6xl text-3xl">{formUser.phoneNumber}</p>
 			<p class="md:text-4xl text-2xl">{formUser.status} plan</p>

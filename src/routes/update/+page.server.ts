@@ -3,7 +3,7 @@ import { fail } from '@sveltejs/kit';
 import twilio from 'twilio';
 import { TWILIO_ACCOUNT_SID } from '$env/static/private';
 import { TWILIO_AUTH_TOKEN } from '$env/static/private';
-import { getUserDetails, checkDuplicate } from '../../lib/server/mongo/mongo';
+import { getUserDetails, checkDuplicate, updateUser } from '../../lib/server/mongo/mongo';
 // ******
 //USING THE OUTPUT VALUES AS FRONT END INDICATORS SO DON'T CHANGE THESE
 // ******
@@ -104,7 +104,9 @@ export const actions: Actions = {
 
 	//After validation, when user clicks save
 	updateUser: async ({ request }) => { 
-
+		updateUser(phoneNumber, {
+			active: false
+		})
 	}
 };
 

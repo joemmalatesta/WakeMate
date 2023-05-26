@@ -126,6 +126,7 @@ async function getUserDetails(phoneNumber: string) {
  * @returns True if the user was successfully updated, false if there was an error
  */
 async function updateUser(phoneNumber: string, values: object) {
+	console.log("lets go")
 	try {
 		await client.connect();
 		const database = client.db('wake-up-call');
