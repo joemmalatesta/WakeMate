@@ -63,11 +63,11 @@ export const actions: Actions = {
 
 		//Send verification number first.
 		try {
-			// const sendMessage = await twilioClient.messages.create({
-			// 	body: `Your wake up call code is: ${validationNumber}`,
-			// 	to: phoneNumber,
-			// 	from: '+18335197545'
-			// });
+			const sendMessage = await twilioClient.messages.create({
+				body: `Your wake up call code is: ${validationNumber}`,
+				to: phoneNumber,
+				from: '+18335197545'
+			});
 		} catch (error) {
 			console.error(error);
 			return fail(500, {
@@ -85,7 +85,7 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		let inputNumber: number | any = formData.get('code');
 		// Stop if the numbers don't match. let them retry
-		if (inputNumber != 1) {
+		if (inputNumber != validationNumber) {
 			return {
 				output: 'validation failure'
 			};
