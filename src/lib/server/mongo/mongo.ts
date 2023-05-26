@@ -1,6 +1,6 @@
 import { MONGO_USER_PASSWORD, MONGO_USERNAME } from '$env/static/private';
 import { MongoClient, ServerApiVersion } from 'mongodb';
-const currentTime = new Date().toUTCString();
+
 
 const uri = `mongodb+srv://${MONGO_USERNAME}:${MONGO_USER_PASSWORD}@wake-up-call.lyukuu3.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
@@ -44,16 +44,16 @@ async function createUser(
 			.insertOne({
 				phoneNumber,
 				wakeUpTime,
-				signUpUTC: currentTime,
-				lastUpdated: currentTime,
+				signUpUTC: new Date().toUTCString(),
+				lastUpdated: new Date().toUTCString(),
 				signUpLocal: localTime,
 				offset,
 				status: "free",
 				weekends,
-				active: true
+				active: "true"
 			})
 			.then(() => {
-				console.log(`Added ${phoneNumber} to DB at ${currentTime}.`);
+				console.log(`Added ${phoneNumber} to DB at ${new Date().toUTCString()}.`);
 			});
 		return true;
 	} catch (err) {
@@ -140,12 +140,12 @@ async function updateUser(phoneNumber: string, values: object) {
 		}
 
 		// Update user's data with new values
-		const updatedUser = { ...existingUser, ...values, lastUpdated: currentTime };
+		const updatedUser = { ...existingUser, ...values, lastUpdated: new Date().toUTCString() };
 
 		// Update user in the database
 		await collection.updateOne({ phoneNumber }, { $set: updatedUser });
 
-		console.log(`User ${phoneNumber} updated at ${currentTime}.`);
+		console.log(`User ${phoneNumber} updated at ${new Date().toUTCString()}.`);
 		return true;
 	} catch (err) {
 		console.log(err);
