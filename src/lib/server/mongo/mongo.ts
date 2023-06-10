@@ -1,6 +1,6 @@
 import { MONGO_USER_PASSWORD, MONGO_USERNAME } from '$env/static/private';
 import { MongoClient, ServerApiVersion } from 'mongodb';
-
+// I need to get the wake up time in UTC here because getting it in python would require me to run the program more often. I'll do that tomorrow
 
 const uri = `mongodb+srv://${MONGO_USERNAME}:${MONGO_USER_PASSWORD}@wake-up-call.lyukuu3.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
