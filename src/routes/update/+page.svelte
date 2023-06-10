@@ -11,7 +11,6 @@
 	let formOutput: any;
 	$: formOutput = form?.output || '';
 	$: formUser = form?.user || undefined;
-	$: console.log(formUser);
 
 
 	const times = [
