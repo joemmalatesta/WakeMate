@@ -12,9 +12,7 @@
 	$: formOutput = form?.output || '';
 	$: formUser = form?.user || undefined;
 	$: console.log(formUser);
-	$: if (formUser) {
-		console.log(formUser[0] || '');
-	}
+
 
 	const times = [
 		'4:00am',
