@@ -6,3 +6,11 @@ I plan on making a discord for accountability among users. They call each other 
 #### Developed with SvelteKit, tailwind, mongo, stripe, TS, and deployed with Vercel.
 
 this is my first business on the way to a GRILLION DOLLARS
+
+
+
+## Todo
+- Make an option in the navbar to pause service without changing other settings.
+- Look into S3 for file upload from user
+- Look into AWS Lambda for running function
+- Calculate time in GMT on this instead of python for simplicity.
