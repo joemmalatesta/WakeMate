@@ -14,16 +14,16 @@
 	$: formOutput = form?.output || '';
 	$: formTime = form?.time;
 	let times = [
-		'4:00am',
-		'5:00am',
-		'6:00am',
-		'7:00am',
-		'8:00am',
-		'4:30am',
-		'5:30am',
-		'6:30am',
-		'7:30am',
-		'8:30am'
+		'04:00am',
+		'05:00am',
+		'06:00am',
+		'07:00am',
+		'08:00am',
+		'04:30am',
+		'05:30am',
+		'06:30am',
+		'07:30am',
+		'08:30am'
 	];
 	let selectedTime = -1;
 	let weekends: any = -1;

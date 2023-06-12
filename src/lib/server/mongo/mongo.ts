@@ -1,5 +1,6 @@
 import { MONGO_USER_PASSWORD, MONGO_USERNAME } from '$env/static/private';
 import { MongoClient, ServerApiVersion } from 'mongodb';
+import { convertTime } from '$lib/utils/time';
 // I need to get the wake up time in UTC here because getting it in python would require me to run the program more often. I'll do that tomorrow
 
 const uri = `mongodb+srv://${MONGO_USERNAME}:${MONGO_USER_PASSWORD}@wake-up-call.lyukuu3.mongodb.net/?retryWrites=true&w=majority`;
@@ -27,9 +28,10 @@ async function createUser(
 	wakeUpTime: string,
 	offset: string,
 	localTime: string,
-	weekends: boolean,
+	weekends: boolean
 ) {
 	try {
+		const timeUTC = convertTime(wakeUpTime, offset);
 		await client.connect();
 		const database = client.db('wake-up-call');
 		const collection = database.collection('users');
@@ -48,9 +50,10 @@ async function createUser(
 				lastUpdated: new Date().toUTCString(),
 				signUpLocal: localTime,
 				offset,
-				status: "free",
+				status: 'free',
 				weekends,
-				active: "true"
+				active: 'true',
+				wakeUpTimeUTC: timeUTC
 			})
 			.then(() => {
 				console.log(`Added ${phoneNumber} to DB at ${new Date().toUTCString()}.`);
@@ -116,7 +119,6 @@ async function getUserDetails(phoneNumber: string) {
 	}
 }
 
-
 /**
  * Overwrites specific values for a user.
  *
@@ -126,7 +128,7 @@ async function getUserDetails(phoneNumber: string) {
  * @returns True if the user was successfully updated, false if there was an error
  */
 async function updateUser(phoneNumber: string, values: object) {
-	console.log("lets go")
+	console.log('lets go');
 	try {
 		await client.connect();
 		const database = client.db('wake-up-call');
@@ -154,7 +156,5 @@ async function updateUser(phoneNumber: string, values: object) {
 		await client.close();
 	}
 }
-
-
 
 export { createUser, checkDuplicate, getUserDetails, updateUser };
