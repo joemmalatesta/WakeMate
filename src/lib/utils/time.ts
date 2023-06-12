@@ -14,7 +14,7 @@ export const convertTime = (time: string, offset: string) => {
 	const [offsetHourString, offsetMinuteString] = offset.slice(4).split(':'); // Extracts the time portion
 	const offsetHours = parseInt(offsetHourString);
 	const offsetMinutes = parseInt(offsetMinuteString);
-	if (sign === '+') {
+	if (sign === '-') {
 		if (minutes === 30 && offsetMinutes === 30) {
 			hours += 1;
 			minutes = 0;
