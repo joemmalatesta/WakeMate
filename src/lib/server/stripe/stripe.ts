@@ -52,7 +52,10 @@ async function createCheckout(planId: number) {
       line_items: [{
         price: plans[planId].id,
         quantity: 1
-      }]
+      }],
+      phone_number_collection: {
+        enabled: true,
+      },
     })
     console.log(session.url)
     return {
